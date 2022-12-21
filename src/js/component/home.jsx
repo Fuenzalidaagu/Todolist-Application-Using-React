@@ -9,11 +9,18 @@ function TodoList() {
   }
 
   function addTask(event) {
-    if (event.key === 'Enter') {
-      setTasks([...tasks, taskInput]);
-      setTaskInput('');
-    }
+	if (event.key === 'Enter') {
+	  const trimmedTaskInput = taskInput.trim();
+  
+	  if (!trimmedTaskInput) {
+		return;
+	  }
+  
+	  setTasks([...tasks, trimmedTaskInput]);
+	  setTaskInput('');
+	}
   }
+  
 
   function deleteTask(index) {
     setTasks(tasks.filter((task, i) => i !== index));
@@ -23,13 +30,13 @@ function TodoList() {
 	<div className='book'>
     	<div className="todo-list">
 			<h1>TODO LIST</h1>
-      	<input
-        	type="text"
-        	placeholder="Añadir tarea"
-        	value={taskInput}
-        	onChange={handleTaskInput}
-        	onKeyPress={addTask}
-      	/>
+			<input
+        		type="text"
+        		placeholder="Añadir tarea"
+        		value={taskInput}
+        		onChange={handleTaskInput}
+        		onKeyPress={addTask}
+      		/>
       	{tasks.length > 0 ? (
         	<ul>
           	{tasks.map((task, index) => (
